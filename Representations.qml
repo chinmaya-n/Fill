@@ -19,4 +19,18 @@ Rectangle {
         anchors.fill: parent
         model: visualDataModel
     }
+
+//    XmlListModel {
+//        id:xmlModel
+//        source: "./XML/list.xml"
+//        query: "/list/person/"
+
+//        XmlRole { name: "name"; query: "name/string()"}
+//        XmlRole { name: "age"; query: "age/string()"}
+//    }
+//    ListView {
+//        width: parent.width; height: 200
+//        model: xmlModel
+//        delegate: Text { text: name + ":" + query}
+//    }
 }
