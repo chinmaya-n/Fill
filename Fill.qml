@@ -60,4 +60,5 @@ Rectangle {
             namesModel.sync();
         }
     }
+
 }
