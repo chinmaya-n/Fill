@@ -8,3 +8,4 @@
 6. ListView
     -preferredHighLightBegin/End
     -highlightRangeMode
+7. contactList.indexAt(mouseX,mouseY) not giving correct results -1 after scrolling

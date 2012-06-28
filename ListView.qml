@@ -8,18 +8,18 @@ Rectangle {
 
     ListModel {
         id:contactListModel
-        ListElement { name:"Ali"; number:"234567" }
-        ListElement { name:"Bunny"; number:"234535" }
-        ListElement { name:"Charan"; number:"234569" }
-        ListElement { name:"Dhanush"; number:"234529" }
-        ListElement { name:"Eeshwar"; number:"234517" }
-        ListElement { name:"Firoz"; number:"234557" }
-        ListElement { name:"Gajini"; number:"234167" }
-        ListElement { name:"Hanuman"; number:"234335" }
-        ListElement { name:"Imran"; number:"234769" }
-        ListElement { name:"Jhony"; number:"234329" }
-        ListElement { name:"Kishore"; number:"234587" }
-        ListElement { name:"Lakshmi"; number:"234357" }
+        ListElement { name:"Ali"; number:"234567"; image: "1.png"}
+        ListElement { name:"Bunny"; number:"234535" ; image: "2.png"}
+        ListElement { name:"Charan"; number:"234569" ; image: "3.png"}
+        ListElement { name:"Dhanush"; number:"234529" ; image: "4.png"}
+        ListElement { name:"Eeshwar"; number:"234517" ; image: "5.png"}
+        ListElement { name:"Firoz"; number:"234557" ; image: "6.png"}
+        ListElement { name:"Gajini"; number:"234167" ; image: "7.png"}
+        ListElement { name:"Hanuman"; number:"234335"; image: "8.png"}
+        ListElement { name:"Imran"; number:"234769"; image: "9.png"}
+        ListElement { name:"Jhony"; number:"234329"; image: "1.png"}
+        ListElement { name:"Kishore"; number:"234587"; image: "2.png"}
+        ListElement { name:"Lakshmi"; number:"234357"; image: "3.png"}
     }
     Component {
         id:contactDelegate
@@ -29,8 +29,9 @@ Rectangle {
             Image {
                 height: contactElement.height
                 width: contactElement.height
-                property string imageName: "./images/3.png"
+                property string imageName: "./images/"+ image
                 source: imageName
+                smooth: true
             }
             Rectangle {
                 id:contactElement
@@ -44,10 +45,12 @@ Rectangle {
                     text:name;
                     color: contactElement.ListView.isCurrentItem ? "red" : "#EAEAEA";
                     font.bold: true
+                    smooth: true
                 }
                 Text {
                     id: contactNumber;
                     text: number;
+                    smooth: true;
                     anchors.top: contactName.bottom;
                     color:"#0cbe2d"
                 }
@@ -93,8 +96,6 @@ Rectangle {
 //        preferredHighlightEnd: 180
 //        highlightRangeMode: ListView.ApplyRange
 //        high
-
-        //Method Understanding
     }
 
     //Key Events
@@ -122,6 +123,15 @@ Rectangle {
         if(event.key === Qt.Key_P) {
             contactList.positionViewAtIndex(5,ListView.Center);
             contactList.currentIndex = 5;
+        }
+    }
+    //Touch Area
+    MouseArea{
+        anchors.fill: parent
+        onClicked: {
+            console.log(contactList.indexAt(mouseX,mouseY));
+//            contactList.positionViewAtIndex(contactList.indexAt(mouseX,mouseY) , ListView.Visible);
+            contactList.currentIndex=contactList.indexAt(mouseX,mouseY);
         }
     }
 }
