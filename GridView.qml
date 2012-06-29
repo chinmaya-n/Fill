@@ -23,6 +23,9 @@ Rectangle {
         ListElement { name:"Mahesh"; number:"234429"; image: "4.png"}
         ListElement { name:"Nagarjuna"; number:"234717"; image: "5.png"}
         ListElement { name:"Orange"; number:"234157"; image: "6.png"}
+        ListElement { name:"Praveen"; number:"233167"; image: "7.png"}
+        ListElement { name:"Qureshi"; number:"234935"; image: "8.png"}
+        ListElement { name:"Rehman"; number:"234760"; image: "9.png"}
     }
     Component {
         id:contactDeligate
@@ -72,12 +75,25 @@ Rectangle {
         highlightFollowsCurrentItem: true
         highlightMoveDuration: 500
 
+        keyNavigationWraps: true //moves from last <=> first
+        snapMode: GridView.SnapOneRow
+
 //        Component.onCompleted: {
 //            console.log(contactGrid.currentItem());
 ////            i.rotateDeligate.start();
 //        }
         onCurrentIndexChanged: {
             console.log(contactGrid.currentItem());
+        }
+
+        //key events
+        Keys.onPressed: {
+            if(event.key === Qt.Key_I) {contactGrid.moveCurrentIndexUp();}
+            if(event.key === Qt.Key_J) {contactGrid.moveCurrentIndexLeft();}
+            if(event.key === Qt.Key_K) {contactGrid.moveCurrentIndexDown();}
+            if(event.key === Qt.Key_L) {contactGrid.moveCurrentIndexRight();}
+            if(event.key === Qt.Key_B) {contactGrid.positionViewAtBeginning();}
+            if(event.key === Qt.Key_E) {contactGrid.positionViewAtEnd();}
         }
     }
 }
