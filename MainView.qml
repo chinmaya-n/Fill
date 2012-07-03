@@ -6,7 +6,8 @@ Rectangle {
     id:mainView
     width: 240
     height: 320
-    color: "black"
+    color: "Black"
+    smooth: true
 
     focus: true
     Keys.onPressed: {
@@ -16,8 +17,14 @@ Rectangle {
             obj.creationAnimation();
             obj.destroyAnimation(obj);
         }
+        if(event.key == Qt.Key_0) {
+            console.log("Pressed 0");
+            var popup = GO.createObject(mainView,"Popup.qml",{});
+            popup.creationAnimation(popup);
+            //Destroy event will be handled in the Popup.qml only
+        }
     }
-    Component.onCompleted: {
-        GO.createObject(mainView,"MenuBar.qml",{});
-    }
+//    Component.onCompleted: {
+//        GO.createObject(mainView,"MenuBar.qml",{});
+//    }
 }
