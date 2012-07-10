@@ -34,33 +34,63 @@ Rectangle {
         }
     }
 
-    states: State {
-        name: "state1"
-        PropertyChanges {
-            target: container
-//            border.width: 3
-            color: "pink"
+    states: [
+        State {
+            name: "state1"
+            PropertyChanges {
+                target: container
+                color: "pink"
+            }
+            PropertyChanges {
+                target: container2
+                width: 200//width*2
+                height: 200//height*2
+            }
+            AnchorChanges {
+                target: coin
+                anchors.right: parent.right
+            }
+            ParentChange {
+                target: coin
+                parent: container2
+            }
+        },
+        State {
+            name: "state2"
+            PropertyChanges {
+                target: container
+                color: "black"
+            }
+            PropertyChanges {
+                target: container2
+                width: 100
+                height: 100
+            }
+            AnchorChanges {
+                target: coin
+                anchors.left: parent.left
+            }
         }
-        PropertyChanges {
-            target: container2
-            width: container2.width*2
-            height: container2.height*2
-        }
-        AnchorChanges {
-            target: coin
-            anchors.right: parent.right
-        }
-        ParentChange {
-            target: coin
-            parent: container2
-        }
-    }
+    ]
 
     transitions: [
         Transition {
             to: "state1"
             AnchorAnimation { duration: 3000; easing.type: Easing.OutBounce; }
-            ParentAnimation { }
+            ParentAnimation { NumberAnimation{ duration: 1000; } }
+            SequentialAnimation {
+//                PropertyAction { target: container2; properties: [width ,height ]}
+                NumberAnimation { target: container; property: "border.width"; easing.type: Easing.OutBounce; to: width/2; duration: 3000 }
+                NumberAnimation { target: container; property: "border.width"; easing.type: Easing.OutBounce; to: 3; duration: 3000 }
+            }
+        },
+        Transition {
+            from: "state1"
+            to: "state2"
+
+            AnchorAnimation { duration: 3000; easing.type: Easing.OutBounce; }
+            PropertyAction { target: coin; property: "anchors"}
+            ParentAnimation { NumberAnimation{ duration: 1000; } }
             SequentialAnimation {
                 NumberAnimation { target: container; property: "border.width"; easing.type: Easing.OutBounce; to: width/2; duration: 3000 }
                 NumberAnimation { target: container; property: "border.width"; easing.type: Easing.OutBounce; to: 3; duration: 3000 }
@@ -72,5 +102,9 @@ Rectangle {
         ColorAnimation { target: container; easing.type: Easing.InOutBounce; duration: 3000 }
     }
 
-    Component.onCompleted: container.state = "state1"
+    Component.onCompleted: {
+        container.state = "state1"
+    }
+    focus: true
+    Keys.onLeftPressed: if(container.state== "state1") container.state = "state2";
 }
